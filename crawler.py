@@ -69,6 +69,7 @@ class Crawler:
 		bsObj = self.getPage(site.searchUrl+topic.name)
 		searchResults = bsObj.select(site.resultListing)
 		for result in searchResults:
+			print(result.attrs["href"])
 			url = result.select(site.resultUrl)[0].attrs["href"]
 			#Check to see whether it's a relative or an absolute URL
 
