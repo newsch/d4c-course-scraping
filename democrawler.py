@@ -72,18 +72,10 @@ class Crawler:
 			url = result.select(site.resultUrl)[0].attrs["href"]
 			#Check to see whether it's a relative or an absolute URL
 
-			# absolute URL
 			if(site.absoluteUrl == "TRUE"):
 				pageObj = self.getPage(url)
-			
-			# relative URL, prepended '/' already
-			elif url[0] == '/':
-				pageObj = self.getPage(site.url+url)
-			
-			# relative URL needs to have '/' prepended
 			else:
-				pageObj = self.getPage(site.url+'/'+url)
-
+				pageObj = self.getPage(site.url+url)
 			if pageObj == None:
 				print("Something was wrong with that page or URL. Skipping!")
 			else:
@@ -113,7 +105,7 @@ topicName = f.readline().strip()
 crawler = Crawler()
 
 #Get a list of sites to search from the sites.csv file
-data = open("sites.csv", 'r').read()
+data = open("old_sites.csv", 'r').read()
 dataFile = StringIO(data)
 siteRows = csv.reader(dataFile)
 

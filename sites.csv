@@ -1,3 +1,5 @@
 name,url,searchUrl,resultListingClass,resultUrl,absoluteUrl,pageTitle,pageBody
+Harvard University,http://courses.harvard.edu,https://courses.harvard.edu/search?q=,tr.course,span.course_title a,FALSE,h1,body
+Boston University,http://bu.edu,https://www.bu.edu/phpbin/course-search/search.php?search=,div.result,div.title,FALSE,div.resultset_top,
 Reuters,http://reuters.com,http://www.reuters.com/search/news?blob=,div.search-result-content,h3.search-result-title a,FALSE,h1,span#article-text
 Brookings,http://www.brookings.edu,https://www.brookings.edu/search/?s=,div.list-content article,h4.title a,TRUE,h1,div.post-body
