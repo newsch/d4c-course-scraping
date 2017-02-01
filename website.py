@@ -13,6 +13,7 @@ class Website:
 		#prepend a slash to relative URLs if not already done
 		if absoluteUrl == "FALSE" and resultUrl[0]!='/':
 			self.resultUrl = '/' + self.resultUrl
-		
+
+		print("resultUrl is", self.resultUrl)	
 		self.pageTitle = pageTitle
 		self.pageBody = pageBody
