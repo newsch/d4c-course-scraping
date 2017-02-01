@@ -9,5 +9,10 @@ class Website:
 		self.resultListing = resultListing
 		self.resultUrl = resultUrl
 		self.absoluteUrl=absoluteUrl
+
+		#prepend a slash to relative URLs if not already done
+		if absoluteUrl == "FALSE" and resultUrl[0]!='/':
+			self.resultUrl = '/' + self.resultUrl
+		
 		self.pageTitle = pageTitle
 		self.pageBody = pageBody
