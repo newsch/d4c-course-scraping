@@ -25,13 +25,15 @@ def getPage(url):
 def parseCourse(pageUrl):
     time.sleep(1)
     bsObj = getPage(pageUrl)
+    title = bsObj.find("span",id="dnn_ctr1713_CourseInfo_Label1")
     institution = bsObj.find("span",id= "dnn_ctr1713_CourseInfo_Label4")
     subject = bsObj.find("span",id="dnn_ctr1713_CourseInfo_Label14")
     description = bsObj.find("span",id="dnn_ctr1713_CourseInfo_Label16")
+    title = title.get_text() if institution is not None else ""
     institution = institution.get_text() if institution is not None else ""
     subject = subject.get_text() if subject is not None else ""
     description = description.get_text() if description is not None else ""
-
+    print(title)
     print(institution)
     print(subject)
     print(description)
