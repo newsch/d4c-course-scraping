@@ -19,15 +19,14 @@ class Course:
 			db.cur.execute("SELECT * FROM courses WHERE title = %s AND subject = %s AND institution = %s AND description = %s", (self.title, self.subject, self.institution, self.description))
 
 			if db.cur.rowcount == 0:
-				values = vars(self)
+				values = dict(vars(self))
 				for value in values:
 					if values[value] == '':
 						values[value] = 'NULL'
 					else:
 						values[value] = "'%s'" % values[value]
-				insert_command = "INSERT INTO courses (title, subject, institution, description) VALUES (%(title)s, %(subject)s, %(institution)s, %(description)s)" % values
-				print(insert_command)
-				db.cur.execute(insert_command)
+				print(self)
+				db.cur.execute("INSERT INTO courses (title, subject, institution, description) VALUES (%(title)s, %(subject)s, %(institution)s, %(description)s)", values)
 				db.conn.commit()
 				self.id = db.cur.lastrowid
 			else:

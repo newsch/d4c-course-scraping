@@ -16,7 +16,7 @@ def getPage(url):
     try:
         req = session.get(url, headers=headers)
         if req.status_code is 429:
-            time.sleep(1)
+            time.sleep(5)
             return getPage(url)
     except requests.exceptions.RequestException:
         return None
@@ -51,19 +51,17 @@ def getPages(institutionName):
     lastLink = lastPage.attrs["href"]
     return int(lastLink[lastLink.rfind("page=")+5:])
 
-def getSchool(institution):
+def getSchool(institution, db):
     pages = getPages(institution[0])
     for page in range(1,pages):
         getCourses(baseUrl.format(institution[0],page),db,institution)
 
 
+db = Database()
 institutionsFile = open("institutions.csv")
 institutions = institutionsFile.read()
 institutions = institutions.split('\n')
 institutionsAbvrs = []
 institutions.pop(0)
 for institution in institutions:
-    getSchool(institution.split(','))
-
-
-db = Database()
+    getSchool(institution.split(','), db)
