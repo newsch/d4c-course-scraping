@@ -4,10 +4,10 @@ from course import Course
 from database import Database
 import requests
 import time
+import csv
 
-baseUrl = "http://www.courseatlas.com/SearchCoursesOnline/CourseSearchResults/tabid/135/Default.aspx?instnm=%5bA-Z%5d&distance=5&page={0}&perpage=50"
+baseUrl = "http://www.courseatlas.com/SearchCoursesOnline/CourseSearchResults/tabid/135/Default.aspx?instnm={0}&distance=5&page={1}&perpage=50"
 
-pages = 10
 
 def getPage(url):
     print("Retrieving URL:\n"+url)
@@ -37,13 +37,33 @@ def parseCourse(pageUrl):
     this_course = Course(None, title, subject, description, institution)
     return this_course
 
-def getCourses(pageUrl, db):
+def getCourses(pageUrl, db,institution):
     bsObj = getPage(pageUrl)
     raw_courses = bsObj.find("ul",{"class","student-course-search-results-list"}).find_all("li")
     for raw_course in raw_courses:
-        parseCourse(raw_course.find("a").attrs["href"]).save(db)
+        course = parseCourse(raw_course.find("a").attrs["href"])
+        course.institution = institution[1]
+        course.save(db)
+
+def getPages(institutionName):
+    bsObj = getPage(baseUrl.format(institutionName,1))
+    lastPage = bsObj.find("a",{"class","a1-pager-last"})
+    lastLink = lastPage.attrs["href"]
+    return int(lastLink[lastLink.rfind("page=")+5:])
+
+def getSchool(institution):
+    pages = getPages(institution[0])
+    for page in range(1,pages):
+        getCourses(baseUrl.format(institution[0],page),db,institution)
+
+
+institutionsFile = open("institutions.csv")
+institutions = institutionsFile.read()
+institutions = institutions.split('\n')
+institutionsAbvrs = []
+institutions.pop(0)
+for institution in institutions:
+    getSchool(institution.split(','))
 
 
 db = Database()
-for page in range(1, pages):
-    getCourses(baseUrl.format(page), db)
