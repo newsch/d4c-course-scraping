@@ -1,6 +1,15 @@
 from pymysql.err import InternalError
 class Course:
-	'''common base class for all courses'''
+	"""Class for courses
+
+	Attributes:
+		id (int): id for mySQL purposes
+		title (str): full title of the course
+		subject (str): subject the course is listed under
+		description (str): full description of the course
+		institution (str): the institution the course is listed under
+
+	"""
 
 	def __init__(self, id, title, subject, description, institution):
 		self.id = id
@@ -11,10 +20,22 @@ class Course:
 
 
 	def __str__(self):
+		"""Format the object nicely for print() statements"""
 		return(self.title + ' in ' + self.subject + ' at ' + self.institution + '\n' + self.description)
 
 
 	def save(self, db):
+		"""Save the object to the provided database
+
+		Checks to see if an identical entry already exists in the database and
+		either assigns that existing entry's id to itself or writes a new entry
+		to the database and assigns the new entry's id to itself.
+		Based on code by Ryan Elizabeth Mitchell.
+
+		Attributes:
+			db (Database): mySQL database for object to be saved to
+
+		"""
 		try:
 			db.cur.execute("SELECT * FROM courses WHERE title = %s AND subject = %s AND institution = %s AND description = %s", (self.title, self.subject, self.institution, self.description))
 
