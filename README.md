@@ -1,9 +1,21 @@
 # d4c-course-scraping
 
 ## About
-A python tool to scrape course catalogs of educational institutions. Created for Ryan Mitchell's Spring 2017 seminar at Olin College.
+This project is a python tool to scrape course catalogs of educational institutions. Created for the "Working the Data Science Process with Python" (Dirty Data Done Dirt Cheap) seminar taught by Ryan Elizabeth Mitchell (@REMitchell) in Spring 2017 at @Olin College of Engineering.
 
-## Status
-In progress, not usable yet.
+## Getting Started
+1. You'll need Python 3, a running mySQL installation, and the relevant [third-party libraries](#Third-Party-Libraries-Used) installed.
 
-The scrapers are currently generic template copies of Ryan's scripts; we are currently working through the list of all 4-year undergraduate engineering programs in Massachusetts (from the ABET website) and seeing which ones yield which kinds of data. It is likely that we will only scrape a subset of these sites for comparision. As scripts become customized to scrape specific schools, this code will be edited and this README updated.
+2. Edit [database.py](database.py) to match your mySQL installation's user, password, host, socket, etc.
+
+3. Run [atlas-scraper.py](atlas-scraper.py) to begin scraping!
+
+## Contributors
+Evan Lloyd New-Schmidt (@newsch), first-year student at @Olin  
+Tobias Schapinsky (@TShapinsky), first-year student at @Olin  
+Mel Chua (@mchua), an @Olin alumni  
+Yichen Jiang (@yjiang0929), first-year student at @Olin  
+
+## Third Party Libraries Used
+- BeautifulSoup, lxml, and Requests for scraping
+- pymysql for storing data
