@@ -1,0 +1,12 @@
+===Database coursescraping
+
+== Table structure for table courses
+
+|------
+|Column|Type|Null|Default
+|------
+|//**ID**//|int(11)|No|
+|title|varchar(256)|No|
+|subject|varchar(128)|Yes|NULL
+|institution|varchar(128)|No|
+|description|varchar(2048)|Yes|NULL
