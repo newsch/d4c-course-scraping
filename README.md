@@ -6,9 +6,11 @@ This project is a python tool to scrape course catalogs of educational instituti
 ## Getting Started
 1. You'll need Python 3, a running mySQL installation, and the relevant [third-party libraries](#Third-Party-Libraries-Used) installed.
 
-2. Edit [database.py](database.py) to match your mySQL installation's user, password, host, socket, etc.
+2. Create a new mySQL database using the structure provided in [example_structure.sql](example_structure.sql).
 
-3. Run [atlas-scraper.py](atlas-scraper.py) to begin scraping!
+3. Edit [database.py](database.py) to match your mySQL installation's user, password, host, socket, etc.
+
+4. Run [course_scraper.py](course_scraper.py) to begin scraping!
 
 ## Contributors
 Evan Lloyd New-Schmidt ([@newsch](https://github.com/newsch)), first-year student at Olin  
