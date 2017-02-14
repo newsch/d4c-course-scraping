@@ -1,6 +1,7 @@
 from urllib.request import urlopen, Request
 from bs4 import BeautifulSoup
 from course import Course
+from database import Database
 import requests
 import time
 
@@ -33,17 +34,16 @@ def parseCourse(pageUrl):
     institution = institution.get_text() if institution is not None else ""
     subject = subject.get_text() if subject is not None else ""
     description = description.get_text() if description is not None else ""
-    print(title)
-    print(institution)
-    print(subject)
-    print(description)
+    this_course = Course(None, title, subject, description, institution)
+    return this_course
 
-def getCourses(pageUrl):
+def getCourses(pageUrl, db):
     bsObj = getPage(pageUrl)
-    courses = bsObj.find("ul",{"class","student-course-search-results-list"}).find_all("li")
-    for course in courses:
-        parseCourse(course.find("a").attrs["href"])
+    raw_courses = bsObj.find("ul",{"class","student-course-search-results-list"}).find_all("li")
+    for raw_course in raw_courses:
+        parseCourse(raw_course.find("a").attrs["href"]).save(db)
 
 
+db = Database()
 for page in range(1, pages):
-    getCourses(baseUrl.format(page))
+    getCourses(baseUrl.format(page), db)
