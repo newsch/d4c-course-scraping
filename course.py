@@ -20,17 +20,16 @@ class Course:
 
 			if db.cur.rowcount == 0:
 				values = dict(vars(self))
-				for value in values:
-					if values[value] == '':
-						values[value] = 'NULL'
-					else:
-						values[value] = "'%s'" % values[value]
+				# for value in values:
+				# 	if values[value] == '':
+				# 		values[value] = 'NULL'
 				print(self)
 				db.cur.execute("INSERT INTO courses (title, subject, institution, description) VALUES (%(title)s, %(subject)s, %(institution)s, %(description)s)", values)
 				db.conn.commit()
 				self.id = db.cur.lastrowid
 			else:
-				self.id = db.cur.fetchall()[0]["id"]
+				self.id = db.cur.fetchall()[0]["ID"]
+				print('Ignoring duplicate entry')
 
 		except InternalError as e:
 			print("INSERT INTO courses (title, subject, institution, description) VALUES ("+str(self.title)+", "+str(self.subject)+", "+str(self.institution)+", "+str(self.description)+")")

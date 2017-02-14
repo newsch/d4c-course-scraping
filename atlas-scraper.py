@@ -24,16 +24,16 @@ def getPage(url):
     return bsObj
 
 def parseCourse(pageUrl):
-    time.sleep(5)
+    time.sleep(3)
     bsObj = getPage(pageUrl)
     title = bsObj.find("span",id="dnn_ctr1713_CourseInfo_Label1")
     institution = bsObj.find("span",id= "dnn_ctr1713_CourseInfo_Label4")
     subject = bsObj.find("span",id="dnn_ctr1713_CourseInfo_Label14")
     description = bsObj.find("span",id="dnn_ctr1713_CourseInfo_Label16")
-    title = title.get_text()
-    institution = institution.get_text()
-    subject = subject.get_text()
-    description = description.get_text()
+    title = title.get_text() if title is not None else ""
+    institution = institution.get_text() if institution is not None else ""
+    subject = subject.get_text() if subject is not None else ""
+    description = description.get_text() if description is not None else ""
     this_course = Course(None, title, subject, description, institution)
     return this_course
 
